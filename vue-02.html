@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title >vue-02</title>
+    
+</head>
+<body>
+    <div id="app">
+        <h1>{{title}}</h1>
+        
+        <p>
+            商品名称：<input type="text" v-model="newProduct.name">
+            库存：<input type="number" v-model="newProduct.stock">
+            <button v-on:click="addProduct">添加</button>
+        </p>
+        <h2 v-if="products.length===0">没有商品</h2>
+        <ul>
+            <li v-for="(item, i) in products" :key="i">
+                {{item.name}}
+                库存：{{item.stock}}
+            <button @click="handleDelete(i)">删除</button>
+            </li>
+            
+        </ul>
+        
+    </div>
+ 
+    <script src="vue.min.js"></script>
+    <script>
+        let vm = new Vue({
+            //el: "#app",//配置模板
+            data: {
+                //配置数据
+                title:"商品管理",
+                newProduct:{
+                    name:"",
+                    stock:0
+                },
+                products: [
+                    { name:"iphone", stock:10},
+                    { name:"xiaomi", stock:8},
+                    { name:"huawei", stock:9}
+                ]
+            },
+            methods:{
+                addProduct(){
+                    this.products.push({
+                        name:this.newProduct.name,
+                        stock:this.newProduct.stock,
+                    })
+                },
+                handleDelete(i){
+                    this.products.splice(i,1);
+                }
+            }
+        });
+        vm.$mount("#app");
+    </script>
+</body>
+</html>

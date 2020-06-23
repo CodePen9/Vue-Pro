@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        姓：{{firstName}} 名：{{lastName}} 姓名:{{fullName}}
+    </div>
+    <script src="vue.min.js"></script>
+    <script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+           firstName:"姜",
+           lastName:"鹏",
+        },
+        computed: {
+            fullName(){
+                return this.firstName + this.lastName;
+            }
+        },
+    })
+
+    </script>
+</body>
+</html>
