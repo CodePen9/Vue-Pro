@@ -3,12 +3,16 @@ var template = `<div>
     <p>年龄：{{age}}</p>
 </div>`;
 
+// export default {
+//     data() {
+//         return {
+//           name:"zhansan",
+//           age:18,  
+//         };
+//     },
+//     template
+// };
 export default {
-    data() {
-        return {
-          name:"zhansan",
-          age:18,  
-        };
-    },
+    props:["name","age"],
     template
 };
