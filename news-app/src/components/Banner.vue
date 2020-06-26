@@ -1,14 +1,21 @@
 <template>
   <div class="banner-container">
-    <ul class="images" style="width:300%">
-        <li><a href=""><img src="../assets/banner/banner1.jpeg" alt=""></a></li>
-        <li><a href=""><img src="../assets/banner/banner2.jpeg" alt=""></a></li>
-        <li><a href=""><img src="../assets/banner/banner3.jpeg" alt=""></a></li>
+    <ul class="images" :style="{
+        width:banners.length * 100 + '%',
+        marginLeft:-index * 100 + '%'
+        }">
+        <li v-for="(item,i) in banners" :key="i">
+          <a :href="item.link">
+            <img :src="item.url" alt="">
+          </a>
+        </li>
     </ul>
     <ul class="dots">
-        <li class="active"></li>
-        <li></li>
-        <li></li>
+        <li v-for="(item,i) in banners" 
+        :key="i" 
+        :class="{active: i===index}"
+        @click="index=i"
+        ></li>
     </ul>
   </div>
 
@@ -16,7 +23,33 @@
 
 <script>
 export default {
-
+    props:{
+      banners:{
+        type:Array,
+        required:true,
+      }
+    },
+    data() {
+      return {
+        index: 2,
+        timer:null,
+      }
+    },
+    methods: {
+      //自动开始切换
+      autoStart(){
+          if(this.timer){
+              return;
+          }
+          setInterval(()=>{
+            this.index = (this.index + 1) % this.banners.length;
+          },2000)
+      },
+      autoStop(){
+         clearInterval(this.timer);
+         this.timer=null;
+      }
+    },  
 }
 </script>
 
