@@ -1,5 +1,5 @@
 <template>
-  <div class="banner-container">
+  <div class="banner-container" @mouseenter="autoStop" @mouseleave="autoStart">
     <ul class="images" :style="{
         width:banners.length * 100 + '%',
         marginLeft:-index * 100 + '%'
@@ -27,7 +27,17 @@ export default {
       banners:{
         type:Array,
         required:true,
-      }
+      },
+      duration: {
+      type: Number,
+      default: 2000, //属性默认值
+    },
+    },
+    created() {
+      this.autoStart()
+    },
+    destroyed() {
+      this.autoStop()
     },
     data() {
       return {
@@ -37,17 +47,17 @@ export default {
     },
     methods: {
       //自动开始切换
-      autoStart(){
-          if(this.timer){
-              return;
-          }
-          setInterval(()=>{
-            this.index = (this.index + 1) % this.banners.length;
-          },2000)
+      autoStart() {
+        if (this.timer) {
+          return;
+        }
+        this.timer = setInterval(() => {
+          this.index = (this.index + 1) % this.banners.length;
+        }, this.duration);
       },
       autoStop(){
          clearInterval(this.timer);
-         this.timer=null;
+        this.timer = null;
       }
     },  
 }
